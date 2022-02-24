@@ -6,7 +6,7 @@ const searchFood = () => {
     searchField.value = '';
 // error message handle 
 // if(searchText= ''){
-//    window.location.alert('Please search food name');
+//    window.location.alert('Please search food name')
 // }
 
 // else{
@@ -16,6 +16,7 @@ const searchFood = () => {
    fetch(url)
    .then(res => res.json())
    .then(data => displaySearchResult(data.meals));
+//    .catch(error => console.log(error));
 // }
 
 }
