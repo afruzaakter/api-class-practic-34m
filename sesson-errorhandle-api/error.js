@@ -37,7 +37,7 @@ const cardDisplay = cards => {
 const main = document.getElementById('main');
 
     for(const card of cards){
-        console.log(card);
+        // console.log(card);
         const div = document.createElement('div');
 
         div.classList.add('col-md-4') 
@@ -60,6 +60,27 @@ const main = document.getElementById('main');
 
 const cardDetails = (code) => {
     console.log(code);
+    fetch(`https://deckofcardsapi.com/api/deck/new/draw/?count=52`)
+    .then(res => res.json())
+    .then(data => {
+        const allCard= data.cards;
+        console.log(allCard);
+        const singleCard = allCard.find(card => card.code === code)
+        console.log(singleCard);
+        const div = document.createElement('div');
+        main.innerHTML="";
+        div.innerHTML=`
+        <div class="card mb-3">
+      <img src="${singleCard.image}" class="card-img-top" alt="...">
+      <div class="card-body">
+      <h5 class="card-title">${singleCard.code}</h5>
+      <p class="card-text">${singleCard.suit}</p>
+     
+     </div>
+     </div>
+        `
+        main.appendChild(div);
+    })
 
 }
 
