@@ -1,6 +1,36 @@
+
+  // ----------keyboard enter press process ------------
+
+  const searchBtn = document.getElementById("button-search");
+  const searchInput = document.getElementById("search-field");
+
+  searchInput.addEventListener("keypress", function(event) {
+    // event.preventDefault(); deya jabe na
+    if (event.keyCode == 13){
+      searchBtn.click();
+    }
+    
+});
+  
+/////////////////////////////
+
+// -----spinner add start----------
+const toggleSpinner = displayStyle => {
+  document.getElementById('spinner').style.display = displayStyle;
+}
+const toggleSearchResult = displayStyle => {
+  document.getElementById('meal-details').style.display = displayStyle;
+}
+// -----spinner add end----------
 const searchFood = () => {
+
+
+
     const searchField = document.getElementById('search-field');
     const error = document.getElementById('error');
+//  display spinner 
+    toggleSpinner('block');
+    toggleSearchResult('none');
     // console.log(searchField);
     let searchText = searchField.value;
     // console.log(searchText);
@@ -9,18 +39,13 @@ const searchFood = () => {
 // error message handle 
 if(searchText == ""){
   //  alert("Please search food name"); 
-  error.innerText = "Please search food name"
+  error.innerText = "Please search food name, try again"
    searchResult.innerHTML= "";
    mealDetails.innerHTML= "";
   //  error.innerText= "";
 }
-// else if(isNaN(searchText) == 'number'){
-//   alert("Please type  food name ")
-//    searchResult.innerHTML= "";
-//    mealDetails.innerHTML= "";
-// }
  else if(searchText<= 0){
-alert("Please type  positive number")
+alert("Show no result found, Please search food name , try again")
 searchResult.innerHTML= "";
    mealDetails.innerHTML= "";
 }
@@ -49,11 +74,14 @@ const displaySearchResult = meals => {
     // searchResult.innerHTML='';
     // way number-2 use kora jai 
     searchResult.textContent='';
-    // if(meals.length==0){
-    //     alert('show no result found')
-    // }
-    meals.forEach(meal => {
-        // console.log(meal);
+    if(!meals){
+        alert('Show no result found, Please search food name , try again')
+      //  or 
+        // error.innerText="show no result found, Please try again"
+        // toggleSpinner('block')
+    }
+    meals?.forEach(meal => {
+        console.log(meal);
       const div = document.createElement('div');
       div.classList.add('col');
       div.innerHTML=`
@@ -66,7 +94,9 @@ const displaySearchResult = meals => {
     </div>
       ` ; 
       searchResult.appendChild(div);   
-    })
+    });
+    toggleSpinner('none');
+    toggleSearchResult('block');
 }
 
 const loadMealDetail = mealId => {
@@ -94,7 +124,5 @@ div.innerHTML = `
 </div>
 `
 mealDetails.appendChild(div);
-
-
 
 }
